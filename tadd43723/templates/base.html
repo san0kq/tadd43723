@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang='en'>
+<head>
+    <link rel='stylesheet' type='text/css' href='{% static 'css/base.css' %}'>
+    <title>{% block title %}{% endblock title %}</title>
+    {% block static %}{% endblock static %}
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="{% url "index" %}">Index</a></li>
+            <li><a href="{% url "data-table" %}">Table</a></li>
+        </ul>
+    </nav>
+    {% block body %}{% endblock body %}
+</body>
+</html>

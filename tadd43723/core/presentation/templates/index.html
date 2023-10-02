@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Load json file{% endblock title %}
+{% block static %}
+<link rel="stylesheet" type="text/css" href="{% static "css/core/index.css" %}"">
+{% endblock static %}
+{% block body %}
+<div class="page">
+    <h1>Load JSON file</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Load</button>
+    
+</div>
+{% endblock body %}

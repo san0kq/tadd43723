@@ -1,0 +1,2 @@
+class DataJsonFormatError(Exception):
+    pass
