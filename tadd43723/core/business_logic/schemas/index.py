@@ -3,13 +3,15 @@ from datetime import datetime
 
 
 class DataJsonSchema(BaseModel):
+    """
+    The schema is used to validate data from a JSON file.
+    
+    """
     name: constr(max_length=49)
     date: str
 
     @validator('date')
     def date_format_validate(cls, value: str) -> str:
-        print(cls)
-        print(type(cls))
         date_format = '%Y-%m-%d_%H:%M'
         try:
             datetime.strptime(value, date_format)

@@ -2,13 +2,40 @@
 {% load static %}
 {% block title %}Data table{% endblock title %}
 {% block static %}
+<script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous">
+</script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
 <link rel="stylesheet" type="text/css" href="{% static "css/core/data.css" %}"">
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
 {% endblock static %}
 {% block body %}
 <div class="page">
-    <h1>Data table</h1>
-    <table>
-        
+    <table id="myTable" class="display">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    <td>{{ row.name }}</td>
+                    <td>{{ row.date }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
 </div>
+
 {% endblock body %}
+{% block script %}
+<script>
+$(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>
+{% endblock script %}

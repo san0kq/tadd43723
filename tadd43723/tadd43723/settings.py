@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 from decouple import config
 
+from .logger_formatter import ContextFormatter
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -132,3 +134,31 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Loggin settings
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console_formatter': {
+            '()': ContextFormatter,
+            'format': '{asctime} - {levelname} - {name} - {module}:{funcName}:{lineno} - {message}',
+            'style': '{',
+        }
+    },
+    'handlers': {
+        'console_handler': {
+            'class': 'logging.StreamHandler',
+            'level': config('LOG_LEVEL'),
+            'formatter': 'console_formatter',
+        }
+    },
+    'loggers': {
+        'root': {'level': config('LOG_LEVEL'), 'handlers': ['console_handler']},
+        'django': {
+            'level': 'INFO',
+            'handlers': ['console_handler'],
+        },
+    },
+}
