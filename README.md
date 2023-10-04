@@ -20,26 +20,23 @@
 
 ## Шаг 3: Клонирование проекта на сервер
 
-Склонируйте проект на сервер.
+Склонируйте проект на сервер c GitHub или другим способом.
 
 ## Шаг 4: Установка зависимостей проекта
 
 Установите Poetry как пакетный менеджер в проекте:
 <pre>
-```bash
 poetry init
 </pre>
 
 Затем выполните следующую команду для установки зависимостей проекта:
 <pre>
-```bash
 poetry install
 </pre>
 
 ## Шаг 5: Активация виртуального окружения и установка Gunicorn
-Убедитесь, что виртуальное окружение активировано:
+Убедитесь, что виртуальное окружение активировано и установите Gunicorn:
 <pre>
-```bash
 poetry shell
 poetry add gunicorn
 </pre>
@@ -53,20 +50,16 @@ poetry add gunicorn
 ## Шаг 8: Выполнение миграции
 Выполните миграцию для создания необходимых таблиц:
 <pre>
-```bash
 python3 manage.py migrate
 </pre>
 
 ## Шаг 9: Создание файла сокета для Gunicorn
 Создайте файл сокета для Gunicorn:
 <pre>
-```bash
 sudo nano /etc/systemd/system/gunicorn.socket
 </pre>
 Содержимое файла:
-
 <pre>
-```gunicorn.socket
 [Unit]
 Description=gunicorn socket
 
@@ -80,12 +73,10 @@ WantedBy=sockets.target
 ## Шаг 10: Создание служебного файла systemd для Gunicorn
 Создайте служебный файл systemd для Gunicorn:
 <pre>
-```bash
 sudo nano /etc/systemd/system/gunicorn.service
 </pre>
 Содержимое файла:
 <pre>
-```gunicorn.service
 [Unit]
 Description=gunicorn daemon
 Requires=gunicorn.socket
@@ -108,7 +99,6 @@ WantedBy=multi-user.target
 ## Шаг 11: Запуск и активация сокета Gunicorn
 Запустите и активируйте сокет Gunicorn:
 <pre>
-```bash
 sudo systemctl start gunicorn.socket
 sudo systemctl enable gunicorn.socket
 </pre>
@@ -116,12 +106,10 @@ sudo systemctl enable gunicorn.socket
 ## Шаг 12: Создание и настройка серверного блока Nginx
 Создайте и настройте серверный блок Nginx:
 <pre>
-```bash
 sudo nano /etc/nginx/sites-available/tadd43723
 </pre>
 Содержимое файла:
 <pre>
-```tadd43723
 server {
     listen 80;
     server_name *IP-адрес сервера или доменное имя*;
@@ -141,22 +129,18 @@ server {
 ## Шаг 13: Активация файла Nginx
 Активируйте файл серверного блока Nginx:
 <pre>
-```bash
 sudo ln -s /etc/nginx/sites-available/tadd43723 /etc/nginx/sites-enabled
 </pre>
 
 ## Шаг 14: Перезапуск Nginx
 Перезапустите Nginx:
 <pre>
-```bash
 sudo systemctl restart nginx
 </pre>
 
 ## Шаг 15: Настройка брандмауэра
 Разрешите трафик для Nginx:
 <pre>
-```bash
 sudo ufw allow 'Nginx Full'
-```
 </pre>
 Теперь проект должен быть развернут и доступен на сервере.
