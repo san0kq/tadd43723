@@ -22,10 +22,11 @@ ListenStream=/run/gunicorn.sock
 [Install]
 WantedBy=sockets.target
 
-10. Создать служебный файл systemd для Gunicorn. 
+10. Создать служебный файл systemd для Gunicorn.
 sudo nano /etc/systemd/system/gunicorn.service
 
 Содержимое файла:
+
 [Unit]
 Description=gunicorn daemon
 Requires=gunicorn.socket
@@ -52,6 +53,7 @@ sudo systemctl enable gunicorn.socket
 sudo nano /etc/nginx/sites-available/tadd43723
 
 Содержимое файла:
+
 server {
     listen 80;
     server_name *IP-адрес сервера или доменное имя*;
